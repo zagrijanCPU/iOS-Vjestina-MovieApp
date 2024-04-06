@@ -11,109 +11,45 @@ import PureLayout
 import MovieAppData
 
 class MovieDetailsViewController : UIViewController {
-//    var headerRect: UIView!
-//    var imageView: UIImageView!
-//    var movieData: MovieDetailsModel!
-//    var movieTitle: UILabel!
-//    var movieDate: UILabel!
-//    var userScore: UILabel!
     
     var header: HeaderViewController!
+    var content: ContentViewController!
     
     override func viewDidLoad() {
         print("MovieDetailsViewController")
         super.viewDidLoad()
         view.backgroundColor = .white
         
-
         buildViews()
-        styleViews()
         positionViews()
     }
     
     private func buildViews(){
         header = HeaderViewController()
+        view.addSubview(header.view)
         
+        content = ContentViewController()
+        view.addSubview(content.view)
     }
     
     private func positionViews(){
-        addChild(header)
-        view.addSubview(header.view)
-        header.didMove(toParent: self)
-        
-        header.view.autoPinEdge(toSuperviewEdge: .top)
-        header.view.autoPinEdge(toSuperviewEdge: .leading)
+    
+        header.view.autoPinEdge(.top, to: .top, of: view)
         header.view.autoMatch(.width, to: .width, of: view)
         header.view.autoSetDimension(.height, toSize: view.bounds.height / 2.5)
+        
+        content.view.autoMatch(.width, to: .width, of: view)
+        content.view.autoPinEdge(.top, to: .bottom, of: header.view)
+        content.view.autoPinEdge(.bottom, to: .bottom, of: view)
+        
     }
     
-    private func styleViews(){
-        header.view.backgroundColor = .cyan
+    
+    public static func getMovieData(id: Int) -> MovieDetailsModel? {
+        let data = MovieUseCase()
+        let movieData = data.getDetails(id: id)
+        print(movieData?.crewMembers)
+        return movieData
     }
     
-//    private func buildViews(){
-//        headerRect = UIView()
-//        view.addSubview(headerRect)
-//        
-//        imageView = UIImageView()
-//        headerRect.addSubview(imageView)
-//        
-//        movieTitle = UILabel()
-//        headerRect.addSubview(movieTitle)
-//        
-//        movieDate = UILabel()
-//        headerRect.addSubview(movieDate)
-//        
-//        userScore = UILabel()
-//        headerRect.addSubview(userScore)
-//        
-//    }
-//    
-//    private func styleViews(){
-//        headerRect.backgroundColor = .cyan
-//        
-//        imageView.contentMode = .scaleAspectFill
-//        
-//        let imageUrlStrig = movieData.imageUrl
-//        
-//        if let imageUrl = URL(string: imageUrlStrig){
-//            DispatchQueue.global().async { [weak self] in
-//                if let imageData = try? Data(contentsOf: imageUrl), let image = UIImage(data: imageData){
-//                    DispatchQueue.main.async {
-//                        self?.imageView.image = image
-//                    }
-//                }
-//            }
-//        }
-//        
-//        movieTitle.text = movieData.name + " (" + String(movieData.year) + ")"
-//        movieTitle.textColor = .white
-//        movieDate.text = movieData.releaseDate
-//        movieDate.textColor = .white
-//        userScore.text = String(movieData.rating) + " User Score"
-//        userScore.textColor = .white
-//    }
-//    
-//    private func positionViews(){
-//        headerRect.autoPinEdge(toSuperviewEdge: .leading, withInset: 0)
-//        headerRect.autoPinEdge(toSuperviewEdge: .top, withInset: 0)
-//        headerRect.autoMatch(.width, to: .width, of: view)
-//        headerRect.autoSetDimension(.height, toSize: view.bounds.height / 3.5)
-//        
-//        imageView.autoPinEdge(toSuperviewEdge: .leading)
-//        imageView.autoPinEdge(toSuperviewEdge: .top)
-//        imageView.autoMatch(.width, to: .width, of: headerRect)
-//        imageView.autoMatch(.height, to: .height, of: headerRect)
-//        
-//        movieTitle.autoPinEdge(toSuperviewEdge: .leading, withInset: 10)
-//        movieTitle.autoCenterInSuperview()
-//        
-//        movieDate.autoPinEdge(.top, to: .bottom, of: movieTitle, withOffset: 20)
-//        movieDate.autoPinEdge(toSuperviewEdge: .leading, withInset: 10)
-//        
-//        userScore.autoPinEdge(.bottom, to: .top, of: movieTitle, withOffset: -20)
-//        userScore.autoPinEdge(toSuperviewEdge: .leading, withInset: 10)
-//    }
-//    
-
 }

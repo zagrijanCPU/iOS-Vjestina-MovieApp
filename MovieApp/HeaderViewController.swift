@@ -24,7 +24,7 @@ class HeaderViewController : UIViewController {
         print("HeaderViewController")
         super.viewDidLoad()
         
-        getData()
+        movieData = MovieDetailsViewController.getMovieData(id: 111161)
         buildComponents()
         positionComponents()
         styleComponents()
@@ -59,19 +59,19 @@ class HeaderViewController : UIViewController {
         movieImageView.clipsToBounds = true
         
         movieTitle.autoCenterInSuperview()
-        movieTitle.autoPinEdge(toSuperviewEdge: .leading, withInset: 10)
+        movieTitle.autoPinEdge(toSuperviewEdge: .leading, withInset: 20)
         
-        movieRelease.autoPinEdge(.top, to: .bottom, of: movieTitle, withOffset: 20)
-        movieRelease.autoPinEdge(toSuperviewEdge: .leading, withInset: 10)
+        movieRelease.autoPinEdge(.top, to: .bottom, of: movieTitle, withOffset: 30)
+        movieRelease.autoPinEdge(toSuperviewEdge: .leading, withInset: 20)
         
-        movieScore.autoPinEdge(.bottom, to: .top, of: movieTitle, withOffset: -20)
-        movieScore.autoPinEdge(toSuperviewEdge: .leading, withInset: 10)
+        movieScore.autoPinEdge(.bottom, to: .top, of: movieTitle, withOffset: -30)
+        movieScore.autoPinEdge(toSuperviewEdge: .leading, withInset: 20)
         
         movieGenre.autoPinEdge(.top, to: .bottom, of: movieRelease, withOffset: 5)
-        movieGenre.autoPinEdge(toSuperviewEdge: .leading, withInset: 10)
+        movieGenre.autoPinEdge(toSuperviewEdge: .leading, withInset: 20)
         
-        addInFavouriteButton.autoPinEdge(.bottom, to: .bottom, of: view, withOffset: -10)
-        addInFavouriteButton.autoPinEdge(.left, to: .left, of: view, withOffset: 10)
+        addInFavouriteButton.autoPinEdge(.bottom, to: .bottom, of: view, withOffset: -20)
+        addInFavouriteButton.autoPinEdge(.left, to: .left, of: view, withOffset: 20)
 
     }
     
@@ -79,6 +79,8 @@ class HeaderViewController : UIViewController {
         
         movieTitle.text = movieData.name + " (" + String(movieData.year) + ")"
         movieTitle.textColor = .white
+        movieTitle.font = UIFont.systemFont(ofSize: 20)
+        
         
         movieScore.text = String(movieData.rating) + " User Score"
         movieScore.textColor = .white
@@ -93,27 +95,17 @@ class HeaderViewController : UIViewController {
         movieRelease.textColor = .white
         
 //        TODO
-        movieGenre.text = "Genres..." + String(movieData.duration / 60) + "h " + String(movieData.duration % 60) + "m"
+        var text = "Genres... " + String(movieData.duration / 60) + "h " + String(movieData.duration % 60) + "m"
+        var attributedText = NSMutableAttributedString(string: text)
+        var range = (text as NSString).range(of: String(movieData.duration / 60) + "h " + String(movieData.duration % 60) + "m")
+        attributedText.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 16), range: range)
+        movieGenre.attributedText = attributedText
         movieGenre.textColor = .white
         
         addInFavouriteButton.setBackgroundImage(UIImage(systemName: "star.circle.fill"), for: .normal)
-//        Change title with svg icon
-//        addInFavouriteButton.setTitle("Add", for: .normal)
-//        Set circle to button
     }
     
-    private func getData(){
-        let data = MovieUseCase()
-        movieData = data.getDetails(id: 111161)
-//        for category in movieData.categories {
-//            print(category)
-//        }
-        print(movieData.duration)
-        print(movieData.duration / 60, movieData.duration % 60)
-        
-    }
     
-
     private func setImageFromURL(_ imageUrlString: String){
         print(imageUrlString)
         if let imageUrl = URL(string: imageUrlString){

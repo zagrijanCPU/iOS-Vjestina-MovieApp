@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F8969C912BC0427A006576B2 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8969C902BC0427A006576B2 /* MovieDetailsViewController.swift */; };
+		F8D05F392BC179BF00F1E3B2 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D05F382BC179BF00F1E3B2 /* ContentViewController.swift */; };
+		F8D05F3B2BC18B4500F1E3B2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D05F3A2BC18B4500F1E3B2 /* LoginViewController.swift */; };
 		F8D5F7B92BC0371C00B6F78C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D5F7B82BC0371C00B6F78C /* AppDelegate.swift */; };
 		F8D5F7BB2BC0371C00B6F78C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D5F7BA2BC0371C00B6F78C /* SceneDelegate.swift */; };
 		F8D5F7C22BC0371E00B6F78C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8D5F7C12BC0371E00B6F78C /* Assets.xcassets */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		F8969C902BC0427A006576B2 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
+		F8D05F382BC179BF00F1E3B2 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
+		F8D05F3A2BC18B4500F1E3B2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F8D5F7B52BC0371C00B6F78C /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D5F7B82BC0371C00B6F78C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8D5F7BA2BC0371C00B6F78C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +71,8 @@
 				F8D5F7C62BC0371E00B6F78C /* Info.plist */,
 				F8969C902BC0427A006576B2 /* MovieDetailsViewController.swift */,
 				F8FFCF302BC13E790048588C /* HeaderViewController.swift */,
+				F8D05F382BC179BF00F1E3B2 /* ContentViewController.swift */,
+				F8D05F3A2BC18B4500F1E3B2 /* LoginViewController.swift */,
 			);
 			path = MovieApp;
 			sourceTree = "<group>";
@@ -149,6 +155,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8D05F3B2BC18B4500F1E3B2 /* LoginViewController.swift in Sources */,
+				F8D05F392BC179BF00F1E3B2 /* ContentViewController.swift in Sources */,
 				F8969C912BC0427A006576B2 /* MovieDetailsViewController.swift in Sources */,
 				F8FFCF312BC13E790048588C /* HeaderViewController.swift in Sources */,
 				F8D5F7B92BC0371C00B6F78C /* AppDelegate.swift in Sources */,
