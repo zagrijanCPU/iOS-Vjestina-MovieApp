@@ -17,6 +17,7 @@ class ContentViewController: UIViewController{
     var movieSummary: UILabel!
     var crewMembers: UICollectionView!
     let cellIdentifier = "cellId"
+    let numberOfCellsPerRow = 3
     
     override func viewDidLoad() {
         print("ContentViewController")
@@ -36,10 +37,12 @@ class ContentViewController: UIViewController{
         view.addSubview(movieSummary)
         
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
         crewMembers = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.addSubview(crewMembers)
-        crewMembers.register(CrewMemberCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        crewMembers.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
         crewMembers.dataSource = self
+        crewMembers.delegate = self
         
         
         
@@ -54,19 +57,21 @@ class ContentViewController: UIViewController{
         movieSummary.autoPinEdge(toSuperviewEdge: .trailing, withInset: 20)
         
         crewMembers.autoPinEdge(.top, to: .bottom, of: movieSummary, withOffset: 20)
-        crewMembers.autoMatch(.width, to: .width, of: view)
-        crewMembers.autoMatch(.height, to: .height, of: view, withOffset: view.bounds.height / 3)
+        crewMembers.autoPinEdge(toSuperviewEdge: .leading, withInset: 20)
+        crewMembers.autoPinEdge(toSuperviewEdge: .trailing, withInset: 20)
+        crewMembers.autoPinEdge(.bottom, to: .bottom, of: view)
     }
     
     private func styleComponents(){
 //        view.backgroundColor = .lightGray
         
         overviewLabel.text = "Overview"
-        overviewLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        overviewLabel.font = UIFont.boldSystemFont(ofSize: 20)
         
         movieSummary.numberOfLines = 0
         movieSummary.text = movieData.summary
         movieSummary.lineBreakMode = .byWordWrapping
+        movieSummary.font = UIFont.systemFont(ofSize: 12)
         
     }
     
@@ -74,19 +79,44 @@ class ContentViewController: UIViewController{
 
 
 extension ContentViewController: UICollectionViewDataSource{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return movieData.crewMembers.count / 3
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return movieData.crewMembers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CrewMemberCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
         
         let member = movieData.crewMembers[indexPath.item]
-        cell.nameLabel.text = member.name
-        cell.roleLabel.text = member.role
+        let nameLabel = UILabel()
+        nameLabel.text = member.name
+        nameLabel.textColor = .black
+        nameLabel.font = UIFont.systemFont(ofSize: 10, weight: .bold)
         
+        cell.contentView.addSubview(nameLabel)
+        
+        nameLabel.autoPinEdge(.top, to: .top, of: cell.contentView)
+        
+        
+        let roleLabel = UILabel()
+        roleLabel.text = member.role
+        roleLabel.textColor = .black
+        roleLabel.font = UIFont.systemFont(ofSize: 10)
+        
+        cell.contentView.addSubview(roleLabel)
+        
+        roleLabel.autoPinEdge(.top, to: .bottom, of: nameLabel)
         return cell
     }
-    
-    
+}
+
+extension ContentViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout:
+                        UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = collectionView.frame.width / CGFloat(numberOfCellsPerRow + 1)
+        return CGSize(width: cellWidth, height: cellWidth / 3)
+    }
 }

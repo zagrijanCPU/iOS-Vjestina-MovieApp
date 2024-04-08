@@ -16,7 +16,7 @@ class HeaderViewController : UIViewController {
     var movieScore: UILabel!
     var movieTitle: UILabel!
     var movieRelease: UILabel!
-    var movieGenre: UILabel!
+    var movieCategories: UILabel!
     var movieImageView: UIImageView!
     var addInFavouriteButton: UIButton!
     
@@ -44,8 +44,8 @@ class HeaderViewController : UIViewController {
         movieRelease = UILabel()
         view.addSubview(movieRelease)
         
-        movieGenre = UILabel()
-        view.addSubview(movieGenre)
+        movieCategories = UILabel()
+        view.addSubview(movieCategories)
         
         addInFavouriteButton = UIButton(type: .custom)
         view.addSubview(addInFavouriteButton)
@@ -67,8 +67,8 @@ class HeaderViewController : UIViewController {
         movieScore.autoPinEdge(.bottom, to: .top, of: movieTitle, withOffset: -30)
         movieScore.autoPinEdge(toSuperviewEdge: .leading, withInset: 20)
         
-        movieGenre.autoPinEdge(.top, to: .bottom, of: movieRelease, withOffset: 5)
-        movieGenre.autoPinEdge(toSuperviewEdge: .leading, withInset: 20)
+        movieCategories.autoPinEdge(.top, to: .bottom, of: movieRelease, withOffset: 5)
+        movieCategories.autoPinEdge(toSuperviewEdge: .leading, withInset: 20)
         
         addInFavouriteButton.autoPinEdge(.bottom, to: .bottom, of: view, withOffset: -20)
         addInFavouriteButton.autoPinEdge(.left, to: .left, of: view, withOffset: 20)
@@ -84,6 +84,7 @@ class HeaderViewController : UIViewController {
         
         movieScore.text = String(movieData.rating) + " User Score"
         movieScore.textColor = .white
+        movieScore.font = UIFont.systemFont(ofSize: 15)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -93,10 +94,12 @@ class HeaderViewController : UIViewController {
         
         movieRelease.text = dateFormatter.string(from: date!)
         movieRelease.textColor = .white
+        movieRelease.font = UIFont.systemFont(ofSize: 15)
         
 //        TODO
-        movieGenre.text = "Genres... " + String(movieData.duration / 60) + "h " + String(movieData.duration % 60) + "m"
-        movieGenre.textColor = .white
+        movieCategories.text = "Categories... " + String(movieData.duration / 60) + "h " + String(movieData.duration % 60) + "m"
+        movieCategories.textColor = .white
+        movieCategories.font = UIFont.systemFont(ofSize: 15)
         
         addInFavouriteButton.setBackgroundImage(UIImage(systemName: "star.circle.fill"), for: .normal)
     }
