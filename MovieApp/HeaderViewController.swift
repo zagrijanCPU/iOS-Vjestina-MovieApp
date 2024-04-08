@@ -95,11 +95,7 @@ class HeaderViewController : UIViewController {
         movieRelease.textColor = .white
         
 //        TODO
-        var text = "Genres... " + String(movieData.duration / 60) + "h " + String(movieData.duration % 60) + "m"
-        var attributedText = NSMutableAttributedString(string: text)
-        var range = (text as NSString).range(of: String(movieData.duration / 60) + "h " + String(movieData.duration % 60) + "m")
-        attributedText.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 16), range: range)
-        movieGenre.attributedText = attributedText
+        movieGenre.text = "Genres... " + String(movieData.duration / 60) + "h " + String(movieData.duration % 60) + "m"
         movieGenre.textColor = .white
         
         addInFavouriteButton.setBackgroundImage(UIImage(systemName: "star.circle.fill"), for: .normal)
@@ -107,7 +103,7 @@ class HeaderViewController : UIViewController {
     
     
     private func setImageFromURL(_ imageUrlString: String){
-        print(imageUrlString)
+//        print(imageUrlString)
         if let imageUrl = URL(string: imageUrlString){
             DispatchQueue.global().async { [weak self] in
                 if let imageData = try? Data(contentsOf: imageUrl), let image = UIImage(data: imageData){

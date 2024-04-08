@@ -48,7 +48,7 @@ class MovieDetailsViewController : UIViewController {
     public static func getMovieData(id: Int) -> MovieDetailsModel? {
         let data = MovieUseCase()
         let movieData = data.getDetails(id: id)
-        print(movieData?.crewMembers)
+//        print(movieData)
         return movieData
     }
     

@@ -14,6 +14,7 @@ class LoginViewController: UIViewController {
     var userNameTextField: UITextField!
     var passwordTextField: UITextField!
     var submitButton: UIButton!
+    var loginLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +22,13 @@ class LoginViewController: UIViewController {
         
         buildComponents()
         positionComponents()
+        styleComponents()
     }
     
     private func buildComponents(){
+        loginLabel = UILabel()
+        view.addSubview(loginLabel)
+        
         userNameTextField = UITextField()
         view.addSubview(userNameTextField)
         
@@ -35,18 +40,34 @@ class LoginViewController: UIViewController {
     }
     
     private func positionComponents(){
+        
+        loginLabel.autoAlignAxis(toSuperviewAxis: .vertical)
+        userNameTextField.autoAlignAxis(toSuperviewAxis: .vertical)
+        passwordTextField.autoAlignAxis(toSuperviewAxis: .vertical)
+        submitButton.autoAlignAxis(toSuperviewAxis: .vertical)
+        
+        passwordTextField.autoAlignAxis(toSuperviewAxis: .horizontal)
+        
         userNameTextField.autoPinEdge(.bottom, to: .top, of: passwordTextField, withOffset: -20)
-        userNameTextField.autoPinEdge(toSuperviewEdge: .leading, withInset: 30)
-        userNameTextField.autoPinEdge(toSuperviewEdge: .trailing, withInset: 30)
+        loginLabel.autoPinEdge(.bottom, to: .top, of: userNameTextField, withOffset: -40)
+        submitButton.autoPinEdge(.top, to: .bottom, of: passwordTextField, withOffset: 20)
+        
+        passwordTextField.autoSetDimension(.width, toSize: view.bounds.width / 1.5)
+        userNameTextField.autoMatch(.width, to: .width, of: passwordTextField)
+        
+    }
+    
+    private func styleComponents(){
+        
+        loginLabel.text = "Login"
+        loginLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        
         userNameTextField.borderStyle = .roundedRect
         userNameTextField.placeholder = "Username"
         userNameTextField.layer.cornerRadius = 10
         userNameTextField.layer.borderColor = UIColor.black.cgColor
         userNameTextField.layer.borderWidth = 1.0
         
-        passwordTextField.autoPinEdge(.top, to: .top, of: view, withOffset: view.bounds.height / 2)
-        passwordTextField.autoPinEdge(toSuperviewEdge: .leading, withInset: 30)
-        passwordTextField.autoPinEdge(toSuperviewEdge: .trailing, withInset: 30)
         passwordTextField.isSecureTextEntry = true
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.placeholder = "Password"
@@ -54,8 +75,6 @@ class LoginViewController: UIViewController {
         passwordTextField.layer.borderColor = UIColor.black.cgColor
         passwordTextField.layer.borderWidth = 1.0
         
-        submitButton.autoPinEdge(.top, to: .bottom, of: passwordTextField, withOffset: 20)
-        submitButton.autoPinEdge(.left, to: .left, of: passwordTextField)
         submitButton.setTitle("Submit", for: .normal)
         submitButton.setTitleColor(.white, for: .normal)
         submitButton.backgroundColor = .systemBlue
