@@ -97,7 +97,14 @@ class HeaderViewController : UIViewController {
         movieRelease.font = UIFont.systemFont(ofSize: 15)
         
 //        TODO
-        movieCategories.text = "Categories... " + String(movieData.duration / 60) + "h " + String(movieData.duration % 60) + "m"
+        
+        let categoriesTitles: [String] = movieData.categories.map{
+            $0.stringValue()
+        }
+        
+//        print(categoriesTitles.joined(separator: ", "))
+        
+        movieCategories.text = categoriesTitles.joined(separator: ", ") + " " + String(movieData.duration / 60) + "h " + String(movieData.duration % 60) + "m"
         movieCategories.textColor = .white
         movieCategories.font = UIFont.systemFont(ofSize: 15)
         
